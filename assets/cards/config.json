@@ -1,0 +1,26 @@
+{
+    "1" : {
+        "content": "square",
+        "equipped": true,
+        "duplicate": true,
+        "img_url": "1.png"
+    },
+    "2" : {
+        "content": "circle",
+        "equipped": true,
+        "duplicate": true,
+        "img_url": "2.png"
+    },
+    "3" : {
+        "content": "triangle",
+        "equipped": true,
+        "duplicate": true,
+        "img_url": "3.png"
+    },
+    "4" : {
+        "content": "cross",
+        "equipped": true,
+        "duplicate": true,
+        "img_url": "4.png"
+    }
+}
