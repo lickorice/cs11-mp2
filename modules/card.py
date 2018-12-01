@@ -20,16 +20,23 @@ class Card():
         self.key = card_key
         self.content = card_json["content"]
         self.img_url = card_json["img_url"]
+        self.healing = card_json["healing"]
+        self.flipping = 2
 
         # Initial state of the card:
-        self.flipped = False
+        self.flipped = True
         self.correct = False
 
     def flip(self):
         """This function flips the card, if it has been guessed correctly."""
-        self.flipped = False if self.flipped else True
+        self.flipping = 0 if not self.flipped else 1
+        self.flipped = not self.flipped
 
     def set_correct(self):
         """This function permanently sets the card correct"""
         self.correct = True
+        if self.healing:
+            # heal
+            print("heal")
+            pass
 

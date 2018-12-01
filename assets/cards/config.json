@@ -1,26 +1,79 @@
 {
     "1" : {
-        "content": "square",
+        "content": "scorpion",
+        "healing": false,
         "equipped": true,
         "duplicate": true,
         "img_url": "1.png"
     },
     "2" : {
-        "content": "circle",
+        "content": "shadow",
+        "healing": false,
         "equipped": true,
         "duplicate": true,
         "img_url": "2.png"
     },
     "3" : {
-        "content": "triangle",
+        "content": "bomb",
+        "healing": false,
         "equipped": true,
         "duplicate": true,
         "img_url": "3.png"
     },
     "4" : {
-        "content": "cross",
+        "content": "behemoth",
+        "healing": false,
         "equipped": true,
         "duplicate": true,
         "img_url": "4.png"
+    },
+    "5" : {
+        "content": "wolf",
+        "healing": false,
+        "equipped": true,
+        "duplicate": true,
+        "img_url": "5.png"
+    },
+    "6" : {
+        "content": "worm",
+        "healing": false,
+        "equipped": true,
+        "duplicate": true,
+        "img_url": "6.png"
+    },
+    "7" : {
+        "content": "bomb",
+        "healing": false,
+        "equipped": true,
+        "duplicate": true,
+        "img_url": "7.png"
+    },
+    "8" : {
+        "content": "knight",
+        "healing": false,
+        "equipped": true,
+        "duplicate": true,
+        "img_url": "8.png"
+    },
+    "9" : {
+        "content": "ninja",
+        "healing": false,
+        "equipped": true,
+        "duplicate": true,
+        "img_url": "9.png"
+    },
+    "10" : {
+        "content": "slime",
+        "healing": false,
+        "equipped": true,
+        "duplicate": true,
+        "img_url": "10.png"
+    },
+    "11" : {
+        "content": "potion",
+        "healing": true,
+        "equipped": true,
+        "duplicate": true,
+        "img_url": "11.png"
     }
 }
