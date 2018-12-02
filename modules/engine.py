@@ -1,4 +1,4 @@
-import json, math, random, pyglet
+import json, math, random, pyglet, os
 from modules import interface
 from modules import board as b
 from modules import card as c
@@ -44,7 +44,7 @@ class Engine():
         self.board.rows = rows
         self.board.cols = cols
         
-        with open("assets/cards/config.json") as f:
+        with open(os.path.join(os.path.dirname(__file__), 'config.json')) as f:
             all_cards = json.load(f)
 
         all_cards_keys = list(all_cards.keys())
