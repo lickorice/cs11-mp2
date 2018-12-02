@@ -35,8 +35,3 @@ class Card():
     def set_correct(self):
         """This function permanently sets the card correct"""
         self.correct = True
-        if self.healing:
-            # heal
-            print("heal")
-            pass
-

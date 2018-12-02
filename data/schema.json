@@ -1,0 +1,11 @@
+{
+    "players": [
+        {
+            "TABLE_NAME": "players",
+
+            "user_name": "STRING",
+            "user_level": "INTEGER",
+            "user_score": "INTEGER"
+        }
+    ]
+}
