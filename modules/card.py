@@ -1,17 +1,30 @@
-import json
+import json, os
 
-with open("assets/cards/config.json") as f:
+with open(os.path.join(os.path.dirname(__file__), 'config.json')) as f:
     config = json.load(f)
 
 class Card():
-    def __init__(self, card_id, card_key):
-        """
-        This initializes the Card class.
+    """
+    This class is used to store information about the card during the game's runtime.
 
-        Args:
-            card_id (int): The unique identifier for the card,
-            card_key (int): The card to be used, according to the .json.
-        """
+    Args:
+        card_id (int): The unique identifying number of card.
+        card_key (int): The key that corresponds to the `config.json` on which card information will be used.
+    
+    Attributes:
+        id (int): The unique identifying number of card.
+        content (str): The "face" of the card in string form, in order to check if two cards match
+            during the game's runtime.
+        correct (bool): This determines if the card has already been correctly guessed.
+        flipped (bool): This determines if the card is face up or is face down.
+        flipping (int): The flipping state of the card, it determines card animation when flipping, and is used by
+            the interface during the calculation of the animations.
+        healing (bool): This determines if the card is a potion, and adds 1 to the Player's health when
+            correctly matched.
+        img_url (str): This points to the file of the corresponding card face image to be used.
+        key (int): The key that corresponds to the `config.json` on which card information will be used.
+    """
+    def __init__(self, card_id, card_key):
         self.id = card_id
 
         # Data passed in from the .json:

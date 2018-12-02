@@ -4,14 +4,64 @@ from modules import player as p
 from modules import button as btn
 
 class Interface():
+    """
+    The main bulk of the program that handles most of the GUI work. The game can be started through
+    the :meth:`start_menu()` function, and is called through the main method. In addition, a
+    scheduling function is to be called for it to work (thanks, pyglet), as it needs a reliable
+    clocking method in order to keep a stable FPS.
+
+    See `main.py` on how to start the program.
+
+    Attributes:
+        all_done_sound (pyglet.media): The sound played when you have guessed all the cards (or died) correctly.
+        back_button (Button): A back button used during the game and scoreboard screens to return to the menu.
+        batch (pyglet.graphics.Batch): The :class:`pyglet.graphics.Batch` object that is used in order to render all
+            of the images/sprites present in the program
+        bg (pyglet.graphics.OrderedGroup): The group of sprites to be rendered before the foreground group.
+        bg_counter (int): The current frame state percentage of the background's position during animation (0-100)
+        bg_d_counter (int): The current frame state percentage of the background's position during animation (0-100)
+        card_count (int): The number of pairs to be generated in the instance's :class:`.Engine` object. It maxes out
+            at 32 pairs (a perfect square of 8 individual cards).
+        card_delay (list): See :attr:`Interface().delay`.
+        click_listeners (list): A list of on-click listeners (basically a tuple of a tuple of x and y ranges)
+            pyglet will listen to during game runtime.
+        click_sound (pyglet.media): The click sound when hovering over buttons.
+        coin_counter (int): The frame at which the coin animation currently sits
+        correct_sound (pyglet.media): The sound played when you guess a pair of cards correctly.
+        current_anims (dict): The animations currently queued and playing. (Card flips, etc)
+        delay (list): A list of crude "delay lists" for pyglet to keep track of thanks to its lack of
+            asynchronous methods.
+        engine (Engine): :class:`.Engine` object to be used throughout the entire program's instance.
+        fg (pyglet.graphics.OrderedGroup): The group of sprites to be rendered after the background group.
+        flip_in (list): A list of `str` filenames that contain each frame of the card flipping inwards.
+        flip_sound (pyglet.media): The flip sound when flipping the cards over.
+        flip_out (list): A list of `str` filenames that contain each frame of the card flipping outwards.
+        flipped_cards (list): A list of flipped :class:`.Card` objects to be flipped down again during
+            the picking phase of the game.
+        game_is_running (bool): Determines if the game screen is running.
+        heal_sound (pyglet.media): The sound that plays when you match cards that also heal (i.e. a potion card).
+        is_picking (bool): If the user is currently picking a second card, in order to determine the methods
+            upon revealing the second card.
+        level (int): The current level/stage of the game. This multiplied by two determines the coin gain each
+            correct match.
+        menu_buttons (list): A list of :class:`.Button` objects used during the main menu screen
+        menu_is_running (bool): Determines if the main menu screen is running.
+        menu_music (pyglet.media): The main menu music theme.
+        music_player (pyglet.media.Player): A music player to play the single track used in the entire game in a loop.
+        pixel_regular (pyglet.font): A font container for the labels.
+        score_is_running (bool): Determines if the endgame screen is running.
+        scoreboard_is_running (bool): Determines if the scoreboard screen is running.
+        sprites (list): A list of :class:`pyglet.sprite.Sprite` objects to be rendered per frame.
+        window (pyglet.window.Window): Window class to be used. By default at 1280x720. Changing the size
+            will mess up the format.
+        wrong_sound (pyglet.media): The sound that plays when you get a pair of cards wrong.
+    """
     def __init__(self):
-        """This instantiates the Interface() class."""
         pyglet.resource.path = ['assets/anims', 'assets/text', 'assets/btns', 'assets/bgs', 'assets/cards']
         pyglet.resource.reindex()
         self.window = pyglet.window.Window(width=1280, height=720)
         self.sprites = []
         self.click_listeners = []
-        self.bgs = []
         self.is_picking = False
         self.flipped_cards = []
         self.delay = [False, 0, 0]
@@ -20,6 +70,8 @@ class Interface():
 
         self.game_is_running = False
         self.menu_is_running = True
+        self.scoreboard_is_running = False
+        self.score_is_running = False
         self.coin_counter = 0
         self.bg_counter = 0
         self.bg_d_counter = 0
@@ -54,6 +106,7 @@ class Interface():
         self.heal_sound = pyglet.media.load("assets/audio/fx_heal.wav", streaming=False)
 
     def load_bg_menu(self):
+        """This loads the background menu."""
         if not self.menu_is_running:
             return
         # bg_image = pyglet.resource.image(self.bg_images["menu"][self.bg_counter])
@@ -67,6 +120,7 @@ class Interface():
         self.bg_counter = (self.bg_counter + 1) % 500
     
     def load_bg_scoreboard(self):
+        """This loads the scoreboard menu."""
         if not self.scoreboard_is_running:
             return
         bg_image = pyglet.resource.image("menu_bg.png")
@@ -97,6 +151,7 @@ class Interface():
         self.click_listeners.append(listener)
 
     def load_bg_score(self):
+        """This loads the score (ending) menu."""
         if not self.score_is_running:
             return
         # bg_image = pyglet.resource.image(self.bg_images["menu"][self.bg_counter])
@@ -110,6 +165,7 @@ class Interface():
         self.bg_counter = (self.bg_counter + 1) % 500
 
     def load_bg_dung(self):
+        """This loads the main game screen."""
         if not self.game_is_running:
             return
         # bg_image = pyglet.resource.image(self.bg_images["dung"][self.bg_d_counter])
@@ -147,6 +203,7 @@ class Interface():
         self.click_listeners.append(listener)
 
     def card_render(self):
+        """This renders the cards as you play."""
         if not self.game_is_running:
             return
         self.click_listeners = []
@@ -189,6 +246,7 @@ class Interface():
             i += 1
     
     def btn_render(self):
+        """This renders the buttons in a number of screens."""
         if self.score_is_running:
             if self.menu_buttons[0].hovering:
                 submit_image = pyglet.resource.image("btn_submit1.png")
@@ -444,6 +502,13 @@ class Interface():
             )
 
     def flip_card(self, card, audio=True):
+        """
+        This renders the card flip as you click on a card.
+        
+        Args:
+            card (Card): card.Card() object to be flipped.
+            audio (:obj:`bool`, optional): If a flip sound would be played. Defaults to True.
+        """
         self.current_anims[card.id] = [0, card]
         if audio:
             self.flip_sound.play()

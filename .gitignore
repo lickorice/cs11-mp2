@@ -1,4 +1,5 @@
 lib/
 bin/
+docs/build/
 
 debug.py

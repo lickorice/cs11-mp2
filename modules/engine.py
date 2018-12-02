@@ -6,16 +6,24 @@ from modules import player as p
 from data import db_player
 
 class Engine():
+    """
+    This class handles the game logic, and is only called barely by the :class:`.Interface` object
+    on game runtime. Throughout the whole instance of the game, only one :class:`.Engine` instance
+    will be used, and is therefore should not be called upon directly by the main method.
+
+    Attributes:
+        board (Board): The :class:`.Board` object the game will use.
+    """
 
     def __init__(self):
-        """
-        This instantiates the Engine() class.
-        """
         self.board = b.Board(0, 0) # always start with an empty set of cards
 
     def generate_cards(self, pairs):
         """
         This function generates a set of cards to be used in a game.
+
+        Args:
+            pairs (int): The number of card pairs to be generated
         """
 
         self.board.cards = []
@@ -49,10 +57,11 @@ class Engine():
         self.board.shuffle()
 
     def end_game(self):
+        """Ends the game. It empties the board."""
         self.board = b.Board(0, 0) # empty the board
 
     def get_scoreboard(self):
-        """Fetches the top 20 players in the database."""
+        """Fetches the top 10 players in the database, sorted by score."""
         player_db = db_player.PlayerDB()
         player_db.connect()
         entries = player_db.get_players()

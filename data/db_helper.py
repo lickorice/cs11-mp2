@@ -16,6 +16,20 @@ def dict_factory(cursor, row):
 # Start of program logic:
 
 class DBHelper():
+    """
+    The SQLite database helper I wrote in order to make SQLite queries with Python easier.
+    
+    Check out the code at https://github.com/lickorice/sqlite3-py-utils.
+
+    Args:
+        database_path (str): The path to your database, it will print a log message if the database does not exist.
+        is_logged (:obj:`bool`, optional): shows verbose logs of the operations.
+
+    Attributes:
+        current_db (sqlite.connect): The connection object of the database as initialized with the :meth:`.connect()` method.
+        database_path (str): The path to your database, it will print a log message if the database does not exist.
+        is_logged (:obj:`bool`, optional): shows verbose logs of the operations.
+    """
     def __init__(self, database_path, is_logged=True):
         """
         Args:
@@ -41,7 +55,15 @@ class DBHelper():
         return
 
     def insert_row(self, table_name, **kwargs):
-        """This function inserts a row in a table."""
+        """
+        This function inserts a row in a table.
+        
+        Args:
+            table_name (str): Name of the table to fetch rows from.
+            strict (:obj:`bool`, optional): If the query will use = or LIKE comparators.
+                Defaults to True (uses =).
+            **kwargs (keyword args): Keyword parameters for initial data values.
+        """
 
         exec_str = 'INSERT INTO {}('+'{}, '*len(kwargs)+') '
         exec_str += 'VALUES ('+'?, '*len(kwargs)+')'
@@ -63,7 +85,15 @@ class DBHelper():
         log("[-DB--] Successfully inserted new row to table '{}'.".format(table_name), self.is_logged)
 
     def fetch_rows(self, table_name, strict=True, **kwargs):
-        """This function returns all the matches of a certain row"""
+        """
+        This function returns all the matches of a certain row
+
+        Args:
+            table_name (str): Name of the table to fetch rows from.
+            strict (:obj:`bool`, optional): If the query will use = or LIKE comparators.
+                Defaults to True (uses =).
+            **kwargs (keyword args): Keyword parameters for pattern matching.
+        """
 
         if strict:
             exec_str = "SELECT * FROM {} WHERE " + "{} = ? AND " * len(kwargs) + "<<"  # marker for removal
@@ -82,7 +112,12 @@ class DBHelper():
         return results
 
     def fetch_all_rows(self, table_name):
-        """This function returns all rows of a table"""
+        """
+        This function returns all rows of a table
+        
+        Args:
+            table_name (str): Name of the table to fetch rows from.
+        """
 
         exec_str = "SELECT * FROM {}".format(table_name)
         
@@ -112,6 +147,12 @@ class DBHelper():
         """
         This function updates a column of a certain row given pattern.
         For safety purposes, LIKE (regex) cannot be used here.
+
+        Args:
+            table_name (str): Name of the table to fetch rows from.
+            column_name (str): Column to update from.
+            column_value (str): Value to update to.
+            **kwargs (keyword args): Keyword parameters for pattern matching.
         """
 
         columns = [i for i in kwargs]

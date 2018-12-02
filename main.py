@@ -13,6 +13,7 @@ def log(string, logged=True):
 # Program logic:
 
 def main():
+    """This function runs the game."""
     log("[-RUN-] Running game...")
     log("[-RUN-] Running main game instance...")
     screen = interface.Interface()

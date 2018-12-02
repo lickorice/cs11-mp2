@@ -1,14 +1,19 @@
-import sqlite3, json
+import sqlite3, json, os
 
 db_directory = 'db/'
 
-with open('schema.json') as f:
+with open(os.path.join(os.path.dirname(__file__), 'schema.json')) as f:
     schemas_json = json.load(f)
 
 baseExperience, factor = 50, 1.5
 
 def exec_string_generate(schemas):
-    """This processes a schema object into CREATE TABLE strings."""
+    """
+    This processes a schema object into CREATE TABLE strings.
+    
+    Args:
+        schema (dict): A schema dictionary loaded from a `schema.json`.
+    """
     exec_strings = []
     for schema in schemas:
         exec_str = "CREATE TABLE IF NOT EXISTS {}(".format(schema["TABLE_NAME"])
