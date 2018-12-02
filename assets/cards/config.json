@@ -42,21 +42,21 @@
         "img_url": "6.png"
     },
     "7" : {
-        "content": "bomb",
+        "content": "knight",
         "healing": false,
         "equipped": true,
         "duplicate": true,
         "img_url": "7.png"
     },
     "8" : {
-        "content": "knight",
+        "content": "ninja",
         "healing": false,
         "equipped": true,
         "duplicate": true,
         "img_url": "8.png"
     },
     "9" : {
-        "content": "ninja",
+        "content": "dragon",
         "healing": false,
         "equipped": true,
         "duplicate": true,

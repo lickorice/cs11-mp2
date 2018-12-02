@@ -3,3 +3,4 @@ class Player():
         self.name = name
         self.score = 0
         self.board_size = board_size
+        self.health = 3

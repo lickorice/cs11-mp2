@@ -21,7 +21,7 @@ def main():
     screen.start_menu()
     # engine.generate_cards(16)
     # screen.start_game(engine.board, player)
-    pyglet.clock.schedule_interval(screen.update, 1/29.9)
+    pyglet.clock.schedule(screen.update)
     pyglet.app.run()
 
 if __name__ == "__main__":
