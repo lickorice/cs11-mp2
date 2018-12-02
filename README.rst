@@ -3,13 +3,6 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-CS11-MP2 (Memory Dungeon)'s Programmer's Guide
-==============================================
-
-.. toctree::
-   :maxdepth: 2
-   :caption: Contents:
-
 Installation
 ============
 The whole game can be copied to your directory
