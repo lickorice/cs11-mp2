@@ -438,13 +438,7 @@ class Interface():
         self.sprites = []
         self.click_listeners = []
 
-        music = pyglet.media.SourceGroup(self.menu_music.audio_format, None)
-        music.loop = True
-        try:
-            music.queue(self.menu_music)
-        except pyglet.media.exceptions.MediaException:
-            pass
-        self.music_player.queue(music)
+        self.music_player.queue(self.menu_music)
         self.music_player.play()
 
     def start_game(self, board, player):

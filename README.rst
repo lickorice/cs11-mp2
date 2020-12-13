@@ -13,7 +13,9 @@ the git repository like so:
 
    git clone http://www.github.com/lickorice/cs11-mp2.git
 
-Also, make sure install the requirements needed:
+Activate the virtual environment with the script in the `Scripts` directory.
+See https://docs.python.org/3/tutorial/venv.html# for platform-specific instructions.
+Then, install the requirements needed:
 
 .. code-block:: bash
 
