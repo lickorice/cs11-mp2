@@ -2,5 +2,8 @@ lib/
 bin/
 docs/build/
 docs/_*/
+__pycache__
+
+*.pdf
 
 debug.py

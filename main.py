@@ -1,3 +1,8 @@
+"""
+I didn't include the .pdf in this repository, by the way.
+Try compiling it yourself.
+"""
+
 import pyglet, datetime
 from modules import interface
 from modules import engine as e
