@@ -490,7 +490,7 @@ class Interface():
             batch=self.batch, group=self.fg, anchor_x = "center"
             )
         self.name_label = pyglet.text.Label(
-            "Enter name".format(score_phrases[0], player.score, plurality),
+            "Enter name",
             font_size=36, x=640, y=320, font_name='Perfect DOS VGA 437 Win',
             batch=self.batch, group=self.fg, anchor_x = "center"
             )
